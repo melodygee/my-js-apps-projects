@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    #taskInput {
+      padding: 10px;
+      width: 250px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    #addBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    #addBtn:hover {
+      background-color: #218838;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 30px;
+    }
+
+    li {
+      background-color: white;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    li.done {
+      text-decoration: line-through;
+      color: #888;
+    }
+
+    .deleteBtn {
+      background-color: #dc3545;
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .deleteBtn:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📝 My To-Do List</h1>
+
+  <input type="text" id="taskInput" placeholder="Enter a new task">
+  <button id="addBtn" onclick="addTask()">Add</button>
+
+  <ul id="taskList"></ul>
+
+  <script>
+    function addTask() {
+      const taskInput = document.getElementById("taskInput");
+      const taskText = taskInput.value.trim();
+
+      if (taskText === "") {
+        alert("Please enter a task.");
+        return;
+      }
+
+      const li = document.createElement("li");
+      li.textContent = taskText;
+
+      // Toggle done class when clicked
+      li.onclick = function() {
+        li.classList.toggle("done");
+      };
+
+      // Add delete button
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Delete";
+      deleteBtn.className = "deleteBtn";
+      deleteBtn.onclick = function(event) {
+        event.stopPropagation(); // prevent li toggle
+        li.remove();
+      };
+
+      li.appendChild(deleteBtn);
+      document.getElementById("taskList").appendChild(li);
+
+      taskInput.value = ""; // clear input
+    }
+  </script>
+
+</body>
+</html>
